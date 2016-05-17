@@ -4,6 +4,6 @@
 public class Game {
     public void main(String[] args) {
         ShipModel s = new ShipModel("A1", "C2");
-
+        System.out.println("Hello");
     }
 }
