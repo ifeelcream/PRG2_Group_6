@@ -8,8 +8,15 @@ import java.net.InetAddress;
  * Created by Tim Egeli on 22/05/2016.
  */
 public class Server {
+    SinkShipController c;
 
     public Server() {
+        this.c = new SinkShipController();
+        //Über Controller
+        //Felderstellung
+        //Schiffe platzieren und Server mitteilen
+        //Platzierung Clients schicken
+
         try (DatagramSocket socket = new DatagramSocket(42321)) {
             while (true) {
                 DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
@@ -18,14 +25,17 @@ public class Server {
                 int port = packet.getPort();
                 //int length = packet.getLength();
                 byte[] data = packet.getData();
-                System.out.print(data);
-                SinkShipController c = new SinkShipController();
-                //c.shootField(data);
-                // Hier dann an Controller Daten senden
-                //data =
-                // Verifikation?
-                packet = new DatagramPacket(data, data.length, address, port);
-                socket.send(packet);
+
+                if(c.hasTurn(data.id.toString())) {
+                    this.c.shootField(data.field.toString());
+                    // Hier dann an Controller Daten senden
+                    //data =
+                    // Verifikation?
+                    packet = new DatagramPacket(data, data.length, address, port);
+                    socket.send(packet);
+                }
+
+
             }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
