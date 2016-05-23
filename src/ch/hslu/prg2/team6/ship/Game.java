@@ -6,10 +6,11 @@ package ch.hslu.prg2.team6.ship;
 public class Game {
     private boolean isServer = true;
 
-    public void main(String[] args) {
-        //ShipModel s = new ShipModel("A1", "C2");
-        startGame();
+    public static void main(String[] args) {
+        Game g = new Game();
+        g.startGame();
     }
+
     private void startGame(){
         Server server = new Server(); // Singleton?!
         //ShipView gui = new ShipView();
