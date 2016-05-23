@@ -18,7 +18,7 @@ public class Server {
                 int port = packet.getPort();
                 //int length = packet.getLength();
                 byte[] data = packet.getData();
-                //System.out.print(data);
+                System.out.print(data);
                 SinkShipController c = new SinkShipController();
                 //c.shootField(data);
                 // Hier dann an Controller Daten senden

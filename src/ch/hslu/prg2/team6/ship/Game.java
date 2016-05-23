@@ -8,11 +8,12 @@ public class Game {
 
     public static void main(String[] args) {
         Game g = new Game();
-        g.startGame();
+        //g.startServer();
+        g.startClient();
     }
 
     private void startGame(){
-        Server server = new Server(); // Singleton?!
+        //Server server = new Server(); // Singleton?!
         //ShipView gui = new ShipView();
         //gui.displayGameType(); // or just start the game via main menu?
     }
