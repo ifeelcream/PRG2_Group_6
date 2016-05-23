@@ -1,3 +1,5 @@
+package ch.hslu.prg2.team6.ship;
+
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -14,8 +16,8 @@ public class Client {
             byte[] message = field.getBytes();
             DatagramPacket packet = new DatagramPacket(message, message.length, address, 42321);
             socket.send(packet);
-            //socket.receive(packet);
-            //byte[] data = packet.getData();
+            socket.receive(packet);
+            byte[] data = packet.getData();
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }

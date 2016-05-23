@@ -1,3 +1,5 @@
+package ch.hslu.prg2.team6.ship;
+
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -16,7 +18,12 @@ public class Server {
                 int port = packet.getPort();
                 //int length = packet.getLength();
                 byte[] data = packet.getData();
-                //data =??
+                //System.out.print(data);
+                SinkShipController c = new SinkShipController();
+                //c.shootField(data);
+                // Hier dann an Controller Daten senden
+                //data =
+                // Verifikation?
                 packet = new DatagramPacket(data, data.length, address, port);
                 socket.send(packet);
             }
@@ -24,4 +31,6 @@ public class Server {
             System.err.println("Error: " + e.getMessage());
         }
     }
+
+
 }
