@@ -7,15 +7,14 @@ import java.net.InetAddress;
  */
 public class Server {
 
-    public static void main(final String[] args) {
-
+    public Server() {
         try (DatagramSocket socket = new DatagramSocket(42321)) {
             while (true) {
                 DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
                 socket.receive(packet);
                 InetAddress address = packet.getAddress();
                 int port = packet.getPort();
-                int length = packet.getLength();
+                //int length = packet.getLength();
                 byte[] data = packet.getData();
                 //data =??
                 packet = new DatagramPacket(data, data.length, address, port);
