@@ -12,10 +12,10 @@ public class Client {
         try (DatagramSocket socket = new DatagramSocket()){
             InetAddress address = InetAddress.getByName("localhost");
             byte[] message = field.getBytes();
-            DatagramPacket packet = new DatagramPacket(message, message.length, address, 42321); //byte, nicht string
+            DatagramPacket packet = new DatagramPacket(message, message.length, address, 42321);
             socket.send(packet);
-            socket.receive(packet);
-            byte[] data = packet.getData();
+            //socket.receive(packet);
+            //byte[] data = packet.getData();
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
