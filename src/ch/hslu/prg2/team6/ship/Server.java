@@ -37,20 +37,12 @@ public class Server implements Runnable {
                         this.shipController.shootField(id);
                         this.shipController.incrementTurn();
                     }
+
+                    //packet = new DatagramPacket(data, data.length, address, port);
+                    //socket.send(packet);
                 } catch (NumberFormatException e) {
                     System.err.println("Error: " + e.getMessage());
                 }
-
-
-                /**if(c.hasTurn(data.id.toString())) {
-                 this.c.shootField(data.field.toString());
-                 // Hier dann an Controller Daten senden
-                 //data =
-                 // Verifikation?
-                 packet = new DatagramPacket(data, data.length, address, port);
-                 socket.send(packet);
-                 c.hasTurn(false);
-                 }**/
             }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
