@@ -7,7 +7,7 @@ import java.net.InetAddress;
 /**
  * Created by Tim Egeli on 22/05/2016.
  */
-public class Server {
+public class Server implements Runnable {
     SinkShipController c;
 
     public Server() {
@@ -15,7 +15,9 @@ public class Server {
         this.c.createField(1);
         //Über Controller
         //Platzierung Clients schicken
+    }
 
+    public void run() {
         try (DatagramSocket socket = new DatagramSocket(42321)) {
             while (true) {
                 DatagramPacket packet = new DatagramPacket(new byte[1024], 1024);
@@ -24,22 +26,21 @@ public class Server {
                 int port = packet.getPort();
                 byte[] data = packet.getData();
                 String received = new String(data);
-
+                System.out.print(received);
 
                 /**if(c.hasTurn(data.id.toString())) {
-                    this.c.shootField(data.field.toString());
-                    // Hier dann an Controller Daten senden
-                    //data =
-                    // Verifikation?
-                    packet = new DatagramPacket(data, data.length, address, port);
-                    socket.send(packet);
-                    c.hasTurn(false);
-                }**/
+                 this.c.shootField(data.field.toString());
+                 // Hier dann an Controller Daten senden
+                 //data =
+                 // Verifikation?
+                 packet = new DatagramPacket(data, data.length, address, port);
+                 socket.send(packet);
+                 c.hasTurn(false);
+                 }**/
             }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
     }
-
 
 }

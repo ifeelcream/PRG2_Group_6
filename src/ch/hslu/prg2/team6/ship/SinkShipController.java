@@ -15,7 +15,7 @@ public class SinkShipController {
     }
 
     public void shootField(int id) {
-        this.fieldPlayer.updateFieldModel(id);
+        //this.fieldPlayer.updateFieldModel(id);
     }
 
     public int[][] createField(int numberOfPlayer) {

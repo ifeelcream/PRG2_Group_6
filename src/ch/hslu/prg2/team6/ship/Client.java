@@ -17,13 +17,12 @@ public class Client {
     private void sendData(byte[] data) {
 
         try (DatagramSocket socket = new DatagramSocket()){
-            InetAddress address = InetAddress.getByName("192.168.1.143");
-            DatagramPacket packet = new DatagramPacket(data, data.length, address, 42320);
+            InetAddress address = InetAddress.getByName("192.168.1.198");
+            DatagramPacket packet = new DatagramPacket(data, data.length, address, 42321);
             socket.send(packet);
             socket.receive(packet);
             byte[] receivedData = packet.getData();
-            String message = new String(receivedData);
-            System.out.print(message);
+            //String message = new String(receivedData);
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
