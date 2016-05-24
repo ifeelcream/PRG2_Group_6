@@ -12,8 +12,7 @@ public class Server {
 
     public Server() {
         this.c = new SinkShipController();
-        c.createField();
-        c.placeShips();
+        this.c.createField(1);
         //Über Controller
         //Platzierung Clients schicken
 
