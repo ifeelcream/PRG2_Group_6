@@ -1,5 +1,7 @@
 package ch.hslu.prg2.team6.ship;
 
+import java.util.HashMap;
+
 /**
  * Created by Tim Egeli on 10/05/2016.
  */
@@ -8,8 +10,12 @@ public class Game {
 
     public static void main(String[] args) {
         Game g = new Game();
-        g.startServer();
+        //g.startServer();
         //g.startClient();
+
+        Server s = new Server();
+        Client c = new Client("1");
+        c.sendShotField("A2");
     }
 
     private void startGame(){

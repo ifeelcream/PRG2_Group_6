@@ -33,7 +33,7 @@ public class BattlefieldModel {
                     startY = rnd.nextInt(numberOfVerticalFields);
                 }
             }
-            while(!validateAvailableFields(startX, startY, l, isVertical, this.battleField));
+            while(!validateAvailableFields(startX, startY, l, isVertical));
             addShip(startX, startY, l, isVertical);
         }
         //System.out.println(BattleField);
@@ -102,6 +102,6 @@ public class BattlefieldModel {
     
     public int[][] getBattleField(){
         return this.battleField;
-        }
+    }
 
 }

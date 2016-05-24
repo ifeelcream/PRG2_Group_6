@@ -1,5 +1,9 @@
 package ch.hslu.prg2.team6.ship;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 /**
  * Created by Tim Egeli on 10/05/2016.
  */
@@ -17,16 +21,14 @@ public class SinkShipController {
     public int[][] createField(int numberOfPlayer) {
         int[] field = new int[numberOfPlayer];
 
+        HashMap<Integer, int[][]> battleField = new HashMap<>();
+
         for (int i=1; i<=numberOfPlayer;i++) {
             this.fieldPlayer = new BattlefieldModel(8,8);
-            field[i] = this.fieldPlayer.getBattleField();
+            battleField.put(i, this.fieldPlayer.getBattleField());
         }
 
         return this.fieldPlayer.getBattleField();
-    }
-
-    public void placeShips() {
-
     }
 
     public boolean hasTurn() {
