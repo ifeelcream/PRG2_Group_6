@@ -9,10 +9,7 @@ import java.util.Map;
  */
 public class SinkShipController {
     private BattlefieldModel fieldPlayer;
-
-    public void startGame() {
-
-    }
+    private int turn = 0;
 
     public void shootField(int id) {
         //this.fieldPlayer.updateFieldModel(id);
@@ -31,7 +28,12 @@ public class SinkShipController {
         return this.fieldPlayer.getBattleField();
     }
 
-    public boolean hasTurn() {
-        return true;
+    // Return the id of the player that has his turn
+    public int hasTurn(int id) {
+        return ((turn % 2) + 1);
+    }
+
+    public void incrementTurn() {
+        this.turn++;
     }
 }

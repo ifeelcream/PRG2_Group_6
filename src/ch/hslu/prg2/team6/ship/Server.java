@@ -27,9 +27,20 @@ public class Server implements Runnable {
                 byte[] data = packet.getData();
                 String receivedField = new String(data);
 
-                int id = Integer.parseInt(receivedField.substring(0,1));
 
-                this.shipController.shootField(id);
+                try {
+                    // Get the ID from the shooting machine
+                    int id = Integer.parseInt(receivedField.substring(0,1));
+
+                    // Only shoot the field, when the player has his turn
+                    if (shipController.hasTurn(id) == id) {
+                        this.shipController.shootField(id);
+                        this.shipController.incrementTurn();
+                    }
+                } catch (NumberFormatException e) {
+                    System.err.println("Error: " + e.getMessage());
+                }
+
 
                 /**if(c.hasTurn(data.id.toString())) {
                  this.c.shootField(data.field.toString());
