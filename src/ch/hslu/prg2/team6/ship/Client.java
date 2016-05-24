@@ -14,14 +14,14 @@ public class Client {
         this.id = id;
     }
 
-    private void sendData(byte[] data) {
+    private void sendData(byte[] data, String IPAddress) {
 
         try (DatagramSocket socket = new DatagramSocket()){
-            InetAddress address = InetAddress.getByName("192.168.1.198");
+            InetAddress address = InetAddress.getByName(IPAddress);
             DatagramPacket packet = new DatagramPacket(data, data.length, address, 42321);
             socket.send(packet);
-            socket.receive(packet);
-            byte[] receivedData = packet.getData();
+            //socket.receive(packet);
+            //byte[] receivedData = packet.getData();
             //String message = new String(receivedData);
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
@@ -29,6 +29,6 @@ public class Client {
     }
 
     public void sendShotField(String field) {
-        sendData((this.id+field).getBytes());
+        sendData((this.id+field).getBytes(), "192.168.1.198");
     }
 }

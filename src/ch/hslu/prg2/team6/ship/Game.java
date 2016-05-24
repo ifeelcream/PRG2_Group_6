@@ -12,6 +12,9 @@ public class Game {
         Game game = new Game();
         game.startServer();
         game.startClient();
+
+        Client c = new Client(1);
+        c.sendShotField("A21");
     }
 
     private void startGame(){

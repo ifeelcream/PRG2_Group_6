@@ -8,11 +8,11 @@ import java.net.InetAddress;
  * Created by Tim Egeli on 22/05/2016.
  */
 public class Server implements Runnable {
-    SinkShipController c;
+    SinkShipController shipController;
 
     public Server() {
-        this.c = new SinkShipController();
-        this.c.createField(1);
+        this.shipController = new SinkShipController();
+        this.shipController.createField(1);
         //Über Controller
         //Platzierung Clients schicken
     }
@@ -25,8 +25,11 @@ public class Server implements Runnable {
                 InetAddress address = packet.getAddress();
                 int port = packet.getPort();
                 byte[] data = packet.getData();
-                String received = new String(data);
-                System.out.print(received);
+                String receivedField = new String(data);
+
+                int id = Integer.parseInt(receivedField.substring(0,1));
+
+                this.shipController.shootField(id);
 
                 /**if(c.hasTurn(data.id.toString())) {
                  this.c.shootField(data.field.toString());
