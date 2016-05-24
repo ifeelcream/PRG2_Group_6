@@ -41,7 +41,7 @@ public class Game {
         // avoid multiple instances?
 
     }
-    private void createPlayer(int id){
+    private void createPlayer(String id){
         Client client = new Client(id);
         //BattlefieldModel fieldModel = new BattlefieldModel(id);
         //gui.displayModel(fieldModel);

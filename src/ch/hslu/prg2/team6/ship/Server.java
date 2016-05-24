@@ -12,9 +12,9 @@ public class Server {
 
     public Server() {
         this.c = new SinkShipController();
+        c.createField();
+        c.placeShips();
         //Über Controller
-        //Felderstellung
-        //Schiffe platzieren und Server mitteilen
         //Platzierung Clients schicken
 
         try (DatagramSocket socket = new DatagramSocket(42321)) {
@@ -34,8 +34,6 @@ public class Server {
                     packet = new DatagramPacket(data, data.length, address, port);
                     socket.send(packet);
                 }
-
-
             }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
