@@ -7,11 +7,13 @@ import java.util.Random;
 public class BattlefieldModel {
     private int numberOfHorizontalFields;
     private int numberOfVerticalFields;
+    private int[][] battleField;
 
     public BattlefieldModel(int numberOfHorizontalFields, int numberOfVerticalFields) {
         this.numberOfHorizontalFields = numberOfHorizontalFields;
         this.numberOfVerticalFields = numberOfVerticalFields;
-        int[][] BattleField = new int[numberOfHorizontalFields][numberOfVerticalFields];
+        this.battleField = new int[numberOfHorizontalFields][numberOfVerticalFields];
+        
         
         for (ShipType s : ShipType.values()){
             int l = s.getLength();
@@ -31,30 +33,30 @@ public class BattlefieldModel {
                     startY = rnd.nextInt(numberOfVerticalFields);
                 }
             }
-            while(!validateAvailableFields(startX, startY, l, isVertical, BattleField));
-            addShip(startX, startY, l, isVertical, BattleField);
+            while(!validateAvailableFields(startX, startY, l, isVertical, this.battleField));
+            addShip(startX, startY, l, isVertical);
         }
         //System.out.println(BattleField);
     }
    
-    private void addShip(int x, int y, int l, boolean isVertical, int[][] BattleField){
+    private void addShip(int x, int y, int l, boolean isVertical){
         if (isVertical){
             for (int i = 0; i < l; i++){
-                BattleField[x][i] = 1;
+                this.battleField[x][i] = 1;
             }
         }
         else{
             for (int i = 0; i < l; i++){
-                BattleField[i][y] =1;
+                this.battleField[i][y] =1;
                 }
             }
         }
     
-    private boolean validateAvailableFields(int x, int y, int l, boolean isVertical, int[][] BattleField){
+    private boolean validateAvailableFields(int x, int y, int l, boolean isVertical){
         boolean isAvailable = true;
         if (isVertical){
             for (int i = 0; i < l; i++){
-                if (BattleField[x][i] == 1){
+                if (this.battleField[x][i] == 1){
                     isAvailable = false;
                     break;
                     } 
@@ -62,7 +64,7 @@ public class BattlefieldModel {
             }
         else{
             for (int i = 0; i < l; i++){
-                if (BattleField[i][y] == 1){
+                if (this.battleField[i][y] == 1){
                     isAvailable = false;
                     break;
                     } 
@@ -71,37 +73,35 @@ public class BattlefieldModel {
         return isAvailable;
         }
     
-    public boolean isHit(int[][] BattleField, String shot){
+    public boolean isHit(String shot){
         boolean isHit = false;
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int positionX =  alphabet.indexOf(shot.charAt(0));
         int positionY = (int) shot.charAt(1);  
-        if (BattleField[positionX][positionY] == 1){
+        if (this.battleField[positionX][positionY] == 1){
             isHit = true;
             }
         return isHit;
         }
     
-    public void updateFieldModel(int[][] BattleField, String field, int newValue){
+    public void updateFieldModel(String field, int newValue){
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int positionX =  alphabet.indexOf(field.charAt(0));
         int positionY = (int) field.charAt(1);  
-        BattleField[positionX][positionY] = newValue;
+        this.battleField[positionX][positionY] = newValue;
         }
     
     public int getNumberOfHorizontalFields() {
         return numberOfHorizontalFields;
     }
 
-    public void setNumberOfHorizontalFields(int numberOfHorizontalFields) {
-        this.numberOfHorizontalFields = numberOfHorizontalFields;
-    }
-
+   
     public int getNumberOfVerticalFields() {
         return numberOfVerticalFields;
     }
+    
+    public int[][] getBattleField(){
+        return this.battleField;
+        }
 
-    public void setNumberOfVerticalFields(int numberOfVerticalFields) {
-        this.numberOfVerticalFields = numberOfVerticalFields;
-    }    
 }
