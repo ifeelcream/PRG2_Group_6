@@ -9,7 +9,6 @@ public class SinkShipController {
 
     public void startGame() {
 
-
     }
 
     public void shootField(BattlefieldModel field) {

@@ -23,7 +23,7 @@ public class Game {
         //while (!server.isReady()){
         // sleep()
         //}
-        createPlayer(1);
+        createPlayer("1");
 
 
         // avoid multiple instances?
@@ -36,7 +36,7 @@ public class Game {
         //while (!client.isReady()){
         // sleep()
         //}
-        createPlayer(2);
+        createPlayer("2");
 
         // avoid multiple instances?
 

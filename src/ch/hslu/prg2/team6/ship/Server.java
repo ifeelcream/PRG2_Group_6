@@ -23,17 +23,17 @@ public class Server {
                 socket.receive(packet);
                 InetAddress address = packet.getAddress();
                 int port = packet.getPort();
-                //int length = packet.getLength();
                 byte[] data = packet.getData();
+                System.out.print(data);
 
-                if(c.hasTurn(data.id.toString())) {
+                /**if(c.hasTurn(data.id.toString())) {
                     this.c.shootField(data.field.toString());
                     // Hier dann an Controller Daten senden
                     //data =
                     // Verifikation?
                     packet = new DatagramPacket(data, data.length, address, port);
                     socket.send(packet);
-                }
+                }**/
             }
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
