@@ -9,47 +9,28 @@ public class Game {
     private boolean isServer = true;
 
     public static void main(String[] args) {
-        Game g = new Game();
-        //g.startServer();
-        //g.startClient();
-
-        Server s = new Server();
-        new Thread(s).start();
-
-        Client c = new Client("1");
-        c.sendShotField("A21");
+        Game game = new Game();
+        game.startServer();
+        game.startClient();
     }
 
     private void startGame(){
-        //Server server = new Server(); // Singleton?!
         //ShipView gui = new ShipView();
         //gui.displayGameType(); // or just start the game via main menu?
     }
 
     public void startServer(){
-        Server server = new Server();
-        //while (!server.isReady()){
-        // sleep()
-        //}
-        createPlayer("1");
+        Server s = new Server();
+        new Thread(s).start();
 
-
-        // avoid multiple instances?
-
+        createPlayer(1);
     }
 
     public void startClient(){
-        //Client client = new Client();
-
-        //while (!client.isReady()){
-        // sleep()
-        //}
-        createPlayer("2");
-
-        // avoid multiple instances?
-
+        createPlayer(2);
     }
-    private void createPlayer(String id){
+
+    private void createPlayer(int id){
         Client client = new Client(id);
         //BattlefieldModel fieldModel = new BattlefieldModel(id);
         //gui.displayModel(fieldModel);

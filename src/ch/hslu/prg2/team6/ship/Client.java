@@ -8,9 +8,9 @@ import java.net.InetAddress;
  * Created by Tim Egeli on 22/05/2016.
  */
 public class Client {
-    private String id;
+    private int id;
 
-    public Client(String id) {
+    public Client(int id) {
         this.id = id;
     }
 
