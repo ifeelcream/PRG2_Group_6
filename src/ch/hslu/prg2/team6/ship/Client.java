@@ -29,6 +29,6 @@ public class Client {
     }
 
     public void sendShotField(String field) {
-        sendData((id+field).getBytes());
+        sendData((this.id+field).getBytes());
     }
 }
