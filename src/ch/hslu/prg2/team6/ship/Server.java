@@ -23,6 +23,7 @@ public class Server {
                 InetAddress address = packet.getAddress();
                 int port = packet.getPort();
                 byte[] data = packet.getData();
+                String received = new String(data);
 
 
                 /**if(c.hasTurn(data.id.toString())) {

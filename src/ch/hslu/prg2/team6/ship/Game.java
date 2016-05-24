@@ -13,9 +13,9 @@ public class Game {
         //g.startServer();
         //g.startClient();
 
-        Server s = new Server();
+        //Server s = new Server();
         Client c = new Client("1");
-        c.sendShotField("A2");
+        c.sendShotField("A21");
     }
 
     private void startGame(){
