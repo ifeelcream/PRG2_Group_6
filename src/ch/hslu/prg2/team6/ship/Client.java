@@ -15,8 +15,9 @@ public class Client {
     }
 
     private void sendData(byte[] data) {
+
         try (DatagramSocket socket = new DatagramSocket()){
-            InetAddress address = InetAddress.getByName("localhost");
+            InetAddress address = InetAddress.getByName("192.168.1.10");
             DatagramPacket packet = new DatagramPacket(data, data.length, address, 42321);
             socket.send(packet);
             socket.receive(packet);

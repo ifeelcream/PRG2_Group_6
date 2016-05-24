@@ -23,7 +23,7 @@ public class Server {
                 InetAddress address = packet.getAddress();
                 int port = packet.getPort();
                 byte[] data = packet.getData();
-                System.out.print(data);
+
 
                 /**if(c.hasTurn(data.id.toString())) {
                     this.c.shootField(data.field.toString());
@@ -32,6 +32,7 @@ public class Server {
                     // Verifikation?
                     packet = new DatagramPacket(data, data.length, address, port);
                     socket.send(packet);
+                    c.hasTurn(false);
                 }**/
             }
         } catch (Exception e) {
