@@ -1,7 +1,7 @@
 /**
  * @author  Samuel Zurbriggen
  */
-package group6battleship;
+package ch.hslu.prg2.team6.ship;
 
 public class NetworkGameGUI extends javax.swing.JFrame {
 

@@ -1,8 +1,6 @@
 package ch.hslu.prg2.team6.ship;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by Tim Egeli on 10/05/2016.
@@ -10,6 +8,37 @@ import java.util.Map;
 public class SinkShipController {
     private BattlefieldModel fieldPlayer;
     private int turn = 0;
+
+    public static void main(String[] args) {
+        SinkShipController sinkShipController = new SinkShipController();
+        sinkShipController.startServer();
+        sinkShipController.startClient();
+
+        Client c = new Client(1);
+        c.sendShotField("A21");
+    }
+
+    private void startGame(){
+        //ShipView gui = new ShipView();
+        //gui.displayGameType(); // or just start the game via main menu?
+    }
+
+    public void startServer(){
+        Server s = new Server();
+        new Thread(s).start();
+
+        createPlayer(1);
+    }
+
+    public void startClient(){
+        createPlayer(2);
+    }
+
+    private void createPlayer(int id){
+        Client client = new Client(id);
+        //BattlefieldModel fieldModel = new BattlefieldModel(id);
+        //gui.displayModel(fieldModel);
+    }
 
     public void shootField(int id) {
         //this.fieldPlayer.updateFieldModel(id);
@@ -29,7 +58,7 @@ public class SinkShipController {
     }
 
     // Return the id of the player that has his turn
-    public int hasTurn(int id) {
+    public int hasTurn() {
         return ((turn % 2) + 1);
     }
 

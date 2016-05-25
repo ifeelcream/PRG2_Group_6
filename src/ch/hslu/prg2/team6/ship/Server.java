@@ -33,7 +33,7 @@ public class Server implements Runnable {
                     int id = Integer.parseInt(receivedField.substring(0,1));
 
                     // Only shoot the field, when the player has his turn
-                    if (shipController.hasTurn(id) == id) {
+                    if (shipController.hasTurn() == id) {
                         this.shipController.shootField(id);
                         this.shipController.incrementTurn();
                     }

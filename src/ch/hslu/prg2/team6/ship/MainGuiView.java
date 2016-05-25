@@ -1,4 +1,4 @@
-package group6battleship;
+package ch.hslu.prg2.team6.ship;
 
 /**
  * @author  Samuel Zurbriggen
@@ -36,19 +36,13 @@ public class MainGuiView extends javax.swing.JFrame
         jFrame.setTitle(""); 
 
         NewGame.setText("new Game");
-        NewGame.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NetworkGameGUI newNetworkGame = new NetworkGameGUI();
-                newNetworkGame.setVisible(true);
-            }
+        NewGame.addActionListener(evt -> {
+            NetworkGameGUI newNetworkGame = new NetworkGameGUI();
+            newNetworkGame.setVisible(true);
         });
 
         Exit.setText("Exit");
-        Exit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-               System.exit(0);
-            }
-        });
+        Exit.addActionListener(evt -> System.exit(0));
 
         HomeBoard.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         HomeBoard.setPreferredSize(new java.awt.Dimension(300, 300));
@@ -156,11 +150,7 @@ public class MainGuiView extends javax.swing.JFrame
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainGuiView().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new MainGuiView().setVisible(true));
     }
     
     // Variables declaration - do not modify                     
