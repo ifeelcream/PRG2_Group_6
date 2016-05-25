@@ -1,17 +1,51 @@
 package ch.hslu.prg2.team6.ship;
 
+import javax.swing.*;
+
 /**
  * @author  Samuel Zurbriggen
  */
-public class MainGuiView extends javax.swing.JFrame  
-{ 
+public class MainGuiView extends JFrame
+{
+    private JPanel HomeBoard;
+    private JPanel EnemyBoard;
+    private JLabel Grundtext;
+    private JButton NewGame;
+    private JLabel jLabelPlayer1;
+    private JLabel jLabelPlayer2;
+    private JButton Field;
+    private JFrame jFrame;
+
+    private SinkShipController sinkShipController;
     
     /**
      * Creates new form MainGuiView1
      */
     public MainGuiView() {
         this.setTitle("Battleship");
+        this.sinkShipController = new SinkShipController();
         initComponents();
+        createMenuBar();
+    }
+
+    /**
+     * Create the menubar
+     */
+    private void createMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu("Game");
+
+        menuBar.add(menu);
+        JMenuItem startServer = new JMenuItem("Start Server");
+        JMenuItem startClient = new JMenuItem("Start Client");
+
+        startServer.addActionListener(evt -> this.sinkShipController.startServer());
+        startClient.addActionListener(evt -> this.sinkShipController.startClient());
+
+        menu.add(startServer);
+        menu.add(startClient);
+
+        setJMenuBar(menuBar);
     }
 
     /**
@@ -22,27 +56,17 @@ public class MainGuiView extends javax.swing.JFrame
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
-        jFrame = new javax.swing.JFrame();    
-        NewGame = new javax.swing.JButton();
-        Exit = new javax.swing.JButton();
-        HomeBoard = new javax.swing.JPanel();
-        EnemyBoard = new javax.swing.JPanel();
-        Grundtext = new javax.swing.JLabel();
-        jLabelPlayer1 = new javax.swing.JLabel();
-        jLabelPlayer2 = new javax.swing.JLabel();
+        jFrame = new JFrame();
+        HomeBoard = new JPanel();
+        EnemyBoard = new JPanel();
+        Grundtext = new JLabel();
+        jLabelPlayer1 = new JLabel();
+        jLabelPlayer2 = new JLabel();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         
-        jFrame.setTitle(""); 
-
-        NewGame.setText("new Game");
-        NewGame.addActionListener(evt -> {
-            NetworkGameGUI newNetworkGame = new NetworkGameGUI();
-            newNetworkGame.setVisible(true);
-        });
-
-        Exit.setText("Exit");
-        Exit.addActionListener(evt -> System.exit(0));
+        jFrame.setTitle("");
 
         HomeBoard.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         HomeBoard.setPreferredSize(new java.awt.Dimension(300, 300));
@@ -88,8 +112,7 @@ public class MainGuiView extends javax.swing.JFrame
                     .addComponent(Grundtext, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(NewGame)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabelPlayer1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -106,8 +129,7 @@ public class MainGuiView extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NewGame)
-                    .addComponent(Exit))
+                    .addComponent(NewGame))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPlayer2)
@@ -152,16 +174,4 @@ public class MainGuiView extends javax.swing.JFrame
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new MainGuiView().setVisible(true));
     }
-    
-    // Variables declaration - do not modify                     
-    private javax.swing.JPanel HomeBoard;
-    private javax.swing.JPanel EnemyBoard;
-    private javax.swing.JButton Exit;
-    private javax.swing.JLabel Grundtext;
-    private javax.swing.JButton NewGame;
-    private javax.swing.JLabel jLabelPlayer1;
-    private javax.swing.JLabel jLabelPlayer2;
-    private javax.swing.JButton Field;
-    private javax.swing.JFrame jFrame;
-    // End of variables declaration                   
 }
