@@ -10,26 +10,40 @@ import java.awt.*;
 public class SinkShipView extends JFrame {
 
     private SinkShipController sinkShipController;
-    private final JPanel gui = new JPanel(new BorderLayout(4, 4));
+    private final JPanel gui = new JPanel(new BorderLayout());
     Client player;
 
-    public SinkShipView() {
+    private SinkShipView() {
         this.sinkShipController = new SinkShipController();
         initializeGui();
     }
 
-    public void initializeGui() {
+    private void initializeGui() {
         JPanel homeBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)), "Own Board");
         JPanel enemyBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)), "Enemy Board");
+        JPanel IPField = getIPField();
 
-        this.gui.setBorder(new EmptyBorder(5, 5, 5, 5));
+        this.gui.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         JPanel boardPanel = new JPanel(new GridLayout(0, 2));
 
+        boardPanel.add(IPField);
         boardPanel.add(homeBoard);
         boardPanel.add(enemyBoard);
 
         this.gui.add(boardPanel);
+    }
+
+    private JPanel getIPField() {
+        JPanel panel = new JPanel(new GridLayout(0,2));
+        JTextField IPField = new JTextField(1);
+        JButton button = new JButton("Connect to Server");
+
+        button.addActionListener(evt -> this.sinkShipController.startClient(IPField.getText()));
+        panel.add(IPField);
+        panel.add(button);
+
+        return panel;
     }
 
     private JPanel createBoard(JButton[][] boardSquares, JPanel board, String boardName) {
@@ -68,25 +82,6 @@ public class SinkShipView extends JFrame {
         return board;
     }
 
-    private void createFrame() {
-        JLabel jLabelPlayer1 = new JLabel();
-        JLabel jLabelPlayer2 = new JLabel();
-
-        setLayout(new BorderLayout());
-
-        add(jLabelPlayer1, BorderLayout.WEST);
-        add(jLabelPlayer2, BorderLayout.EAST);
-
-        jLabelPlayer1.setText("Player 1");
-        jLabelPlayer2.setText("Player 2");
-
-
-    }
-
-    private final JComponent getGui() {
-        return this.gui;
-    }
-
     /**
      * Create the menubar
      */
@@ -96,24 +91,27 @@ public class SinkShipView extends JFrame {
         JMenuItem startServer = new JMenuItem("Start Server");
         JMenuItem startClient = new JMenuItem("Start Client");
 
+
         menuGame.add(startServer);
         menuGame.add(startClient);
 
         menuBar.add(menuGame);
 
-        startServer.addActionListener(evt -> {
-            this.player = this.sinkShipController.startServer();
-        });
-
-        startClient.addActionListener(evt -> {
-            this.player = this.sinkShipController.startClient();
-        });
+        startServer.addActionListener(evt -> this.player = this.sinkShipController.startServer());
 
         return menuBar;
     }
 
     /**
-     * @param args the command line arguments
+     * getter for the GUI.
+     * @return The complete GUI.
+     */
+    private final JComponent getGui() {
+        return this.gui;
+    }
+
+    /**
+     * @param args
      */
     public static void main(String args[]) {
         JFrame jFrame = new JFrame("Sink Ships");

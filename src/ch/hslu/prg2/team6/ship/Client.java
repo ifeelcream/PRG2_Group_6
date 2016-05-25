@@ -10,15 +10,17 @@ import java.util.HashMap;
  */
 public class Client {
     private int id;
+    private String IPAddress;
 
-    public Client(int id) {
+    public Client(int id, String IPAddress) {
         this.id = id;
+        this.IPAddress = IPAddress;
     }
 
-    private void sendData(byte[] data, String IPAddress) {
+    private void sendData(byte[] data) {
 
         try (DatagramSocket socket = new DatagramSocket()) {
-            InetAddress address = InetAddress.getByName(IPAddress);
+            InetAddress address = InetAddress.getByName(this.IPAddress);
             DatagramPacket packet = new DatagramPacket(data, data.length, address, 42321);
             socket.send(packet);
             socket.receive(packet);
@@ -32,7 +34,7 @@ public class Client {
     }
 
     public void sendShotField(String field) {
-        sendData((this.id + field).getBytes(), "localhost");
+        sendData((this.id + field).getBytes());
     }
 
     public int getId() {

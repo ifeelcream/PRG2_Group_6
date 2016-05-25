@@ -1,5 +1,8 @@
 package ch.hslu.prg2.team6.ship;
 
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
+import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -27,20 +30,27 @@ public class Server implements Runnable {
                 byte[] data = packet.getData();
                 String receivedField = new String(data);
 
-                try {
-                    // Get the ID from the shooting machine
-                    int id = Integer.parseInt(receivedField.substring(0, 1));
+                if (receivedField == "Hallo") {
+                    byte[] sendPacket = "Connected".getBytes();
+                    packet = new DatagramPacket(sendPacket, sendPacket.length, address, port);
+                    socket.send(packet);
+                } else {
+                    try {
+                        // Get the ID from the shooting machine
+                        int id = Integer.parseInt(receivedField.substring(0, 1));
 
-                    // Only shoot the field, when the player has his turn
-                    if (sinkShipController.hasTurn() == id) {
-                        this.sinkShipController.shootField(id, receivedField);
-                        this.sinkShipController.incrementTurn();
-                        // Field muss in bytes umgewandelt werden
-                        packet = new DatagramPacket(this.battleField, this.battleField.length, address, port);
-                        socket.send(packet);
+                        // Only shoot the field, when the player has his turn
+                        if (sinkShipController.hasTurn() == id) {
+                            this.sinkShipController.shootField(id, receivedField);
+                            this.sinkShipController.incrementTurn();
+
+                            // Field muss in bytes umgewandelt werden
+                            //packet = new DatagramPacket(this.battleField, this.battleField.length, address, port);
+                            socket.send(packet);
+                        }
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error: " + e.getMessage());
                     }
-                } catch (NumberFormatException e) {
-                    System.err.println("Error: " + e.getMessage());
                 }
             }
         } catch (Exception e) {

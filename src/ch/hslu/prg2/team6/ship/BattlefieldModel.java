@@ -74,8 +74,7 @@ public class BattlefieldModel {
 
     public boolean isHit(String shot) {
         boolean isHit = false;
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        int positionX = alphabet.indexOf(shot.charAt(0));
+        int positionX = (int) shot.charAt(0);
         int positionY = (int) shot.charAt(1);
         if (this.singleBattleField[positionX][positionY] == 1) {
             isHit = true;
@@ -84,8 +83,7 @@ public class BattlefieldModel {
     }
 
     public void updateFieldModel(String field, int newValue) {
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        int positionX = alphabet.indexOf(field.charAt(0));
+        int positionX = (int) field.charAt(0);
         int positionY = (int) field.charAt(1);
         this.singleBattleField[positionX][positionY] = newValue;
     }
