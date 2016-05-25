@@ -9,46 +9,37 @@ public class SinkShipController {
     private BattlefieldModel fieldPlayer;
     private int turn = 0;
 
-    private void startGame(){
+    private void startGame() {
         //ShipView gui = new ShipView();
         //gui.displayGameType(); // or just start the game via main menu?
     }
 
-    public void startServer(){
+    public Client startServer() {
         Server s = new Server();
         new Thread(s).start();
 
         System.out.println("Server started");
 
-        createPlayer(1);
+        return new Client(1);
     }
 
-    public void startClient(){
+    public Client startClient() {
+        // Client darf nur einmal erstellt werden, wie lösen?
         System.out.println("Client created");
 
-        createPlayer(2);
+        return new Client(2);
     }
 
-    private void createPlayer(int id){
-        Client client = new Client(id);
+    private void createPlayer() {
         //BattlefieldModel fieldModel = new BattlefieldModel(id);
         //gui.displayModel(fieldModel);
     }
 
-    public void shootField(int id) {
-        //this.fieldPlayer.updateFieldModel(id);
+    public void shootField(int id, String shotField) {
+        this.fieldPlayer.updateFieldModel(id, shotField);
     }
 
-    public int[][] createField(int numberOfPlayer) {
-        int[] field = new int[numberOfPlayer];
-
-        HashMap<Integer, int[][]> battleField = new HashMap<>();
-
-        for (int i=1; i<=numberOfPlayer;i++) {
-            this.fieldPlayer = new BattlefieldModel(8,8);
-            battleField.put(i, this.fieldPlayer.getBattleField());
-        }
-
+    public HashMap<Integer, int[][]> getUpdatedField() {
         return this.fieldPlayer.getBattleField();
     }
 

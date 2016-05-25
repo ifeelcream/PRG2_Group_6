@@ -1,18 +1,17 @@
 package ch.hslu.prg2.team6.ship;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
- * @author  Samuel Zurbriggen
+ * Created by Tim Egeli on 25/05/2016.
  */
 public class SinkShipView extends JFrame {
 
     private SinkShipController sinkShipController;
-    private final JPanel gui = new JPanel(new BorderLayout(4,4));
+    private final JPanel gui = new JPanel(new BorderLayout(4, 4));
+    Client player;
 
     public SinkShipView() {
         this.sinkShipController = new SinkShipController();
@@ -20,12 +19,12 @@ public class SinkShipView extends JFrame {
     }
 
     public void initializeGui() {
-        JPanel homeBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0,9)), "Own Board");
-        JPanel enemyBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0,9)), "Enemy Board");
+        JPanel homeBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)), "Own Board");
+        JPanel enemyBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)), "Enemy Board");
 
-        this.gui.setBorder(new EmptyBorder(5,5,5,5));
+        this.gui.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        JPanel boardPanel = new JPanel(new GridLayout(0,2));
+        JPanel boardPanel = new JPanel(new GridLayout(0, 2));
 
         boardPanel.add(homeBoard);
         boardPanel.add(enemyBoard);
@@ -39,8 +38,11 @@ public class SinkShipView extends JFrame {
         for (int i = 0; i < boardSquares.length; i++) {
             for (int j = 0; j < boardSquares[i].length; j++) {
                 JButton button = new JButton();
-                button.setMargin(new Insets(0,0,0,0));
+                button.setMargin(new Insets(0, 0, 0, 0));
                 button.setBackground(Color.BLUE);
+                int x = j;
+                int y = i;
+                button.addActionListener(evt -> this.player.sendShotField((x + 1) + "" + (y + 1)));
                 boardSquares[j][i] = button;
             }
         }
@@ -99,14 +101,15 @@ public class SinkShipView extends JFrame {
 
         menuBar.add(menuGame);
 
-        startServer.addActionListener(evt -> this.sinkShipController.startServer());
-        startClient.addActionListener(evt -> this.sinkShipController.startClient());
+        startServer.addActionListener(evt -> {
+            this.player = this.sinkShipController.startServer();
+        });
+
+        startClient.addActionListener(evt -> {
+            this.player = this.sinkShipController.startClient();
+        });
 
         return menuBar;
-    }
-
-    private void createPlayerFields() {
-
     }
 
     /**
