@@ -5,11 +5,14 @@ package ch.hslu.prg2.team6.ship;
 
 public class NetworkGameGUI extends javax.swing.JFrame {
 
+    private SinkShipController sinkShipController;
+
     /**
      * Creates new form NetworkGameGUI
      */
     public NetworkGameGUI() {
         initComponents();
+        this.sinkShipController = new SinkShipController();
     }
 
     /**
@@ -30,8 +33,10 @@ public class NetworkGameGUI extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Bitte wählen"));
 
         jButtonClient.setText("Client");
+        jButtonClient.addActionListener(evt -> this.sinkShipController.startClient());
 
         jButtonServer.setText("Server");
+        jButtonServer.addActionListener(evt -> this.sinkShipController.startServer());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

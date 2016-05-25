@@ -9,15 +9,6 @@ public class SinkShipController {
     private BattlefieldModel fieldPlayer;
     private int turn = 0;
 
-    public static void main(String[] args) {
-        SinkShipController sinkShipController = new SinkShipController();
-        sinkShipController.startServer();
-        sinkShipController.startClient();
-
-        Client c = new Client(1);
-        c.sendShotField("A21");
-    }
-
     private void startGame(){
         //ShipView gui = new ShipView();
         //gui.displayGameType(); // or just start the game via main menu?
@@ -27,10 +18,14 @@ public class SinkShipController {
         Server s = new Server();
         new Thread(s).start();
 
+        System.out.println("Server started");
+
         createPlayer(1);
     }
 
     public void startClient(){
+        System.out.println("Client created");
+
         createPlayer(2);
     }
 

@@ -8,11 +8,11 @@ import java.net.InetAddress;
  * Created by Tim Egeli on 22/05/2016.
  */
 public class Server implements Runnable {
-    SinkShipController shipController;
+    SinkShipController sinkShipController;
 
     public Server() {
-        this.shipController = new SinkShipController();
-        this.shipController.createField(1);
+        this.sinkShipController = new SinkShipController();
+        this.sinkShipController.createField(2);
         //Über Controller
         //Platzierung Clients schicken
     }
@@ -33,9 +33,9 @@ public class Server implements Runnable {
                     int id = Integer.parseInt(receivedField.substring(0,1));
 
                     // Only shoot the field, when the player has his turn
-                    if (shipController.hasTurn() == id) {
-                        this.shipController.shootField(id);
-                        this.shipController.incrementTurn();
+                    if (sinkShipController.hasTurn() == id) {
+                        this.sinkShipController.shootField(id);
+                        this.sinkShipController.incrementTurn();
                     }
 
                     //packet = new DatagramPacket(data, data.length, address, port);
