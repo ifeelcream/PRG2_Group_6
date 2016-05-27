@@ -1,25 +1,38 @@
 package ch.hslu.prg2.team6.ship;
 
-import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.HashMap;
 
 /**
- * Created by Tim Egeli on 22/05/2016.
+ * This class provides a UDP server to check the shot fields and proceed them.
+ *
+ * @author Tim Egeli
  */
 public class Server implements Runnable {
+    /**
+     * The controller which is used to perform actions
+     */
     SinkShipController sinkShipController;
+
+    /**
+     * The initial battlefield
+     */
     HashMap<Integer, int[][]> battleField;
 
+    /**
+     * Assigns the attributes
+     */
     public Server() {
         this.sinkShipController = new SinkShipController();
         this.battleField = this.sinkShipController.getUpdatedField();
     }
 
+    /**
+     * Run the server in a thread.
+     */
     public void run() {
         try (DatagramSocket socket = new DatagramSocket(42321)) {
             while (true) {
@@ -30,27 +43,26 @@ public class Server implements Runnable {
                 byte[] data = packet.getData();
                 String receivedField = new String(data);
 
-                if (receivedField == "Hallo") {
-                    byte[] sendPacket = "Connected".getBytes();
-                    packet = new DatagramPacket(sendPacket, sendPacket.length, address, port);
-                    socket.send(packet);
-                } else {
-                    try {
-                        // Get the ID from the shooting machine
-                        int id = Integer.parseInt(receivedField.substring(0, 1));
+                try {
+                    // Get the ID from the shooting machine
+                    int id = Integer.parseInt(receivedField.substring(0, 1));
 
-                        // Only shoot the field, when the player has his turn
-                        if (sinkShipController.hasTurn() == id) {
-                            this.sinkShipController.shootField(id, receivedField);
-                            this.sinkShipController.incrementTurn();
+                    // Only shoot the field, when the player has his turn
+                    if (sinkShipController.hasTurn() == id) {
+                        this.sinkShipController.shootField(id, receivedField);
+                        HashMap<Integer, int[][]> field = this.sinkShipController.getUpdatedField();
 
-                            // Field muss in bytes umgewandelt werden
-                            //packet = new DatagramPacket(this.battleField, this.battleField.length, address, port);
-                            socket.send(packet);
-                        }
-                    } catch (NumberFormatException e) {
-                        System.err.println("Error: " + e.getMessage());
+                        ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+                        ObjectOutput oo = new ObjectOutputStream(bStream);
+                        oo.writeObject(field);
+                        byte[] buffer = bStream.toByteArray();
+
+                        packet = new DatagramPacket(buffer, buffer.length, address, port);
+                        socket.send(packet);
+                        this.sinkShipController.incrementTurn();
                     }
+                } catch (NumberFormatException e) {
+                    System.err.println("Error: " + e.getMessage());
                 }
             }
         } catch (Exception e) {

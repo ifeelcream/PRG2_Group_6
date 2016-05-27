@@ -5,19 +5,38 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
- * Created by Tim Egeli on 25/05/2016.
+ * This class creates the GUI and sends action from the GUI to the controller.
+ *
+ * @author Tim Egeli
  */
 public class SinkShipView extends JFrame {
 
+    /**
+     * The controller which is used to perform actions
+     */
     private SinkShipController sinkShipController;
+
+    /**
+     * The main panel
+     */
     private final JPanel gui = new JPanel(new BorderLayout());
+
+    /**
+     * Client object needed to store the ID and shoot a field
+     */
     Client player;
 
+    /**
+     * Initialize the components
+     */
     private SinkShipView() {
         this.sinkShipController = new SinkShipController();
         initializeGui();
     }
 
+    /**
+     * Place all components on the main panel
+     */
     private void initializeGui() {
         JPanel homeBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)), "Own Board");
         JPanel enemyBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)), "Enemy Board");
@@ -25,16 +44,23 @@ public class SinkShipView extends JFrame {
 
         this.gui.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        JPanel boardPanel = new JPanel(new GridLayout(0, 2));
+        JPanel gamePanel = new JPanel(new BorderLayout());
 
-        boardPanel.add(IPField);
+        JPanel boardPanel = new JPanel(new GridLayout(0,2));
         boardPanel.add(homeBoard);
         boardPanel.add(enemyBoard);
 
-        this.gui.add(boardPanel);
+        gamePanel.add(IPField, BorderLayout.NORTH);
+        gamePanel.add(boardPanel,BorderLayout.CENTER);
+
+        this.gui.add(gamePanel);
     }
 
-    private JPanel getIPField() {
+    /**
+     * Creates the field with the IP address
+     * @return Field with IP address
+     */
+    private final JPanel getIPField() {
         JPanel panel = new JPanel(new GridLayout(0,2));
         JTextField IPField = new JTextField(1);
         JButton button = new JButton("Connect to Server");
@@ -46,7 +72,14 @@ public class SinkShipView extends JFrame {
         return panel;
     }
 
-    private JPanel createBoard(JButton[][] boardSquares, JPanel board, String boardName) {
+    /**
+     * Creates the game field with a board.
+     * @param boardSquares JButton array to hold the fields
+     * @param board JPanel on which the fields are placed
+     * @param boardName The name of the board
+     * @return The created board
+     */
+    private final JPanel createBoard(JButton[][] boardSquares, JPanel board, String boardName) {
         final String COLS = "ABCDEFGH";
 
         for (int i = 0; i < boardSquares.length; i++) {
@@ -83,9 +116,10 @@ public class SinkShipView extends JFrame {
     }
 
     /**
-     * Create the menubar
+     * Create the menubar.
+     * @return Created menubar
      */
-    private JMenuBar getCustomMenuBar() {
+    private final JMenuBar getCustomMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         JMenu menuGame = new JMenu("Game");
         JMenuItem startServer = new JMenuItem("Start Server");
