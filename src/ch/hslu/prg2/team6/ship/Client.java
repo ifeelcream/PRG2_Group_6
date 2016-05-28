@@ -1,14 +1,11 @@
 package ch.hslu.prg2.team6.ship;
 
-import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.io.*;
+import java.net.*;
 import java.util.HashMap;
 
 /**
- * This class provides a UDP client to send data to the server.
+ * This class provides a TCP client to send data to the server.
  *
  * @author Tim Egeli
  */
@@ -37,24 +34,27 @@ public class Client {
      * Sends the data from the client to the server.
      * @param data Data to send to the server
      */
-    private void sendData(byte[] data) {
+    private void sendData(String data) {
 
-        try (DatagramSocket socket = new DatagramSocket()) {
-            InetAddress address = InetAddress.getByName(this.IPAddress);
-            DatagramPacket packet = new DatagramPacket(data, data.length, address, 42321);
-            socket.send(packet);
-            socket.receive(packet);
-            byte[] receivedData = packet.getData();
+        try {
+            int serverPort = 4020;
+            InetAddress host = InetAddress.getByName(this.IPAddress);
+            System.out.println("Connecting to server on port " + serverPort);
 
-            ByteArrayInputStream baos = new ByteArrayInputStream(receivedData);
-            ObjectInputStream oos = new ObjectInputStream(baos);
-
-            HashMap<Integer, int[][]> field = (HashMap<Integer, int[][]>)oos.readObject();
-            System.out.println(field);
-
-            //An Controller das Feld senden, dieser updated GUI mit neuen Daten und gibt repaint
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
+            Socket socket = new Socket(host,serverPort);
+            System.out.println("Just connected to " + socket.getRemoteSocketAddress());
+            PrintWriter toServer = new PrintWriter(socket.getOutputStream(),true);
+            BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            toServer.println(data);
+            String line = fromServer.readLine();
+            System.out.println("Client received: " + line + " from Server");
+            toServer.close();
+            fromServer.close();
+            socket.close();
+        } catch(UnknownHostException ex) {
+            ex.printStackTrace();
+        } catch(IOException e){
+            e.printStackTrace();
         }
     }
 
@@ -63,7 +63,7 @@ public class Client {
      * @param field The field that was clicked
      */
     public void sendShotField(String field) {
-        sendData((this.id + field).getBytes());
+        sendData((this.id + field));
     }
 
     /**

@@ -24,15 +24,6 @@ public class SinkShipController {
     private int turn = 0;
 
     /**
-     * Creates two new battlefields for player 1 and player 2.
-     */
-    public SinkShipController() {
-        //Es darf nur einmal ein neuer Controller erstellt werden, ansonsten werden Felder immer neu gemacht
-        this.fieldPlayer1 = new BattlefieldModel(8,8,1);
-        this.fieldPlayer2 = new BattlefieldModel(8,8,2);
-    }
-
-    /**
      * Starts a new server and a new client.
      * @return The created client
      */
@@ -40,9 +31,17 @@ public class SinkShipController {
         Server s = new Server();
         new Thread(s).start();
 
-        System.out.println("Server started");
+        createBattleFields();
 
         return new Client(1, "localhost");
+    }
+
+    /**
+     * Creates two new battlefields
+     */
+    public void createBattleFields() {
+        this.fieldPlayer1 = new BattlefieldModel(8,8,1);
+        this.fieldPlayer2 = new BattlefieldModel(8,8,2);
     }
 
     /**
@@ -52,7 +51,6 @@ public class SinkShipController {
      */
     public Client startClient(String IPAddress) {
         // Client darf nur einmal erstellt werden, wie lösen?
-        System.out.println("Client created");
 
         return new Client(2, IPAddress);
     }

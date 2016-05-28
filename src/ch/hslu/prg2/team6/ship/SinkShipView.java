@@ -19,7 +19,7 @@ public class SinkShipView extends JFrame {
     /**
      * The main panel
      */
-    private final JPanel gui = new JPanel(new BorderLayout());
+    private final JPanel gui;
 
     /**
      * Client object needed to store the ID and shoot a field
@@ -31,6 +31,7 @@ public class SinkShipView extends JFrame {
      */
     private SinkShipView() {
         this.sinkShipController = new SinkShipController();
+        this.gui = new JPanel(new BorderLayout());
         initializeGui();
     }
 
