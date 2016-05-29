@@ -41,8 +41,10 @@ public class SinkShipView extends JFrame {
     private void initializeGui() {
         JPanel homeBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)));
         JLabel ownBoardLabel = new JLabel("Own Board");
+        ownBoardLabel.setHorizontalAlignment(SwingConstants.CENTER);
         JLabel enemyBoardLabel = new JLabel("Enemy Board");
-    
+        enemyBoardLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
         JPanel enemyBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)));
         JPanel IPField = getIPField();
 
