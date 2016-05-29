@@ -135,11 +135,9 @@ public class SinkShipView extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         JMenu menuGame = new JMenu("Game");
         JMenuItem startServer = new JMenuItem("Start Server");
-        JMenuItem startClient = new JMenuItem("Start Client");
 
 
         menuGame.add(startServer);
-        menuGame.add(startClient);
 
         menuBar.add(menuGame);
 
