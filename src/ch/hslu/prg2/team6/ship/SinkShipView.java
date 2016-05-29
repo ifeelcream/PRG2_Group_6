@@ -39,20 +39,29 @@ public class SinkShipView extends JFrame {
      * Place all components on the main panel
      */
     private void initializeGui() {
-        JPanel homeBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)), "Own Board");
-        JPanel enemyBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)), "Enemy Board");
+        JPanel homeBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)));
+        JLabel ownBoardLabel = new JLabel("Own Board");
+        JLabel enemyBoardLabel = new JLabel("Enemy Board");
+    
+        JPanel enemyBoard = createBoard(new JButton[8][8], new JPanel(new GridLayout(0, 9)));
         JPanel IPField = getIPField();
 
         this.gui.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         JPanel gamePanel = new JPanel(new BorderLayout());
-
-        JPanel boardPanel = new JPanel(new GridLayout(0,2));
+        JPanel boardTitlePanel = new JPanel(new GridLayout(1,2));
+        JPanel boardPanel = new JPanel(new GridLayout(1,2));        
+        boardTitlePanel.add(ownBoardLabel);
+        boardTitlePanel.add(enemyBoardLabel);
         boardPanel.add(homeBoard);
         boardPanel.add(enemyBoard);
+        gamePanel.add(IPField, BorderLayout.PAGE_START);
 
-        gamePanel.add(IPField, BorderLayout.NORTH);
+        //gamePanel.add(boardTitlePanel, BorderLayout.NORTH);
+
+
         gamePanel.add(boardPanel,BorderLayout.CENTER);
+        gamePanel.add(boardTitlePanel, BorderLayout.PAGE_END);
 
         this.gui.add(gamePanel);
     }
@@ -62,7 +71,7 @@ public class SinkShipView extends JFrame {
      * @return Field with IP address
      */
     private final JPanel getIPField() {
-        JPanel panel = new JPanel(new GridLayout(0,2));
+        JPanel panel = new JPanel(new GridLayout(1,2)); // 
         JTextField IPField = new JTextField(1);
         JButton button = new JButton("Connect to Server");
 
@@ -80,13 +89,14 @@ public class SinkShipView extends JFrame {
      * @param boardName The name of the board
      * @return The created board
      */
-    private final JPanel createBoard(JButton[][] boardSquares, JPanel board, String boardName) {
+    private final JPanel createBoard(JButton[][] boardSquares, JPanel board) {
         final String COLS = "ABCDEFGH";
 
         for (int i = 0; i < boardSquares.length; i++) {
             for (int j = 0; j < boardSquares[i].length; j++) {
                 JButton button = new JButton();
                 button.setMargin(new Insets(0, 0, 0, 0));
+                button.setSize(30, 30);
                 button.setBackground(Color.BLUE);
                 int x = j;
                 int y = i;
@@ -95,7 +105,7 @@ public class SinkShipView extends JFrame {
             }
         }
 
-        board.add(new JLabel(boardName));
+        board.add(new JLabel(""));
 
         for (int i = 0; i < 8; i++) {
             board.add(new JLabel(COLS.substring(i, i + 1), SwingConstants.CENTER));
@@ -151,11 +161,11 @@ public class SinkShipView extends JFrame {
     public static void main(String args[]) {
         JFrame jFrame = new JFrame("Sink Ships");
         jFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+        jFrame.setSize(850, 400);
+        jFrame.setResizable(false);
         SinkShipView sinkShipView = new SinkShipView();
         jFrame.add(sinkShipView.getGui());
         jFrame.setJMenuBar(sinkShipView.getCustomMenuBar());
-        jFrame.pack();
         jFrame.setVisible(true);
 
         EventQueue.invokeLater(() -> new SinkShipView());
