@@ -48,6 +48,7 @@ public class Client {
             toServer.println(data);
             String line = fromServer.readLine();
             System.out.println("Client received: " + line + " from Server");
+            // Todo: Update Gui, disable button in own field or change color in opponent field. 
             toServer.close();
             fromServer.close();
             socket.close();

@@ -78,19 +78,15 @@ public class SinkShipView extends JFrame {
         JTextField IPField = new JTextField(10);
         JButton button = new JButton("Connect to Server");
 
-        //button.addActionListener(evt -> this.player = this.sinkShipController.startClient(IPField.getText()));
-        button.addActionListener(evt -> {callbackClient(IPField.getText()); });
+        button.addActionListener(evt -> this.player = this.sinkShipController.startClient(IPField.getText()));
         panel.add(IPField);
         panel.add(button);
 
         return panel;
     }
     
-    private void callbackClient(String server){        
-        this.player = this.sinkShipController.startClient(server);
-    }
+  
 
-    private void callbackShot(){}
     
     /**
      * Creates the game field with a board.
