@@ -28,7 +28,6 @@ public class BattlefieldModel {
     /**
      * All the battlefields combined with the client id as identifier
      */
-    private HashMap<Integer, int[][]> battleField = new HashMap<>();
 
     /**
      * Creates a battlefield and places the ships on it.
@@ -129,14 +128,25 @@ public class BattlefieldModel {
     /**
      * Updates the field model with the shot field
      * @param field Field which was shot
-     * @param newValue The new value of the field
      */
-    public void updateFieldModel(String field) {
-        
+    public int updateFieldModel(String field) {
+        int newValue;
         int positionX = Integer.parseInt(field.substring(0,1));
         int positionY = Integer.parseInt(field.substring(1,2));
-        int oldValue = this[positionX][positionY];
+        int oldValue = this.singleBattleField[positionX][positionY];
+        // Read the current value of the target field and update t (int 0..3) 
+        switch (oldValue){
+            case 0: // player hits water
+                 newValue = 2;
+                 break;
+            case 1: // player hits ship 
+                 newValue = 3;
+                 break;
+            default:
+                newValue = oldValue;
+        }
         this.singleBattleField[positionX][positionY] = newValue;
+        return newValue;
     }
 
     /**

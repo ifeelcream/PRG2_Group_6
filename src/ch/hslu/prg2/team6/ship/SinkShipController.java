@@ -30,9 +30,7 @@ public class SinkShipController {
     public Client startServer() {
         Server s = new Server();
         new Thread(s).start();
-
         createBattleFields();
-
         return new Client(1, "localhost");
     }
 
@@ -40,8 +38,8 @@ public class SinkShipController {
      * Creates two new battlefields
      */
     public void createBattleFields() {
-        BattlefieldModel fieldModelPlayer1 = new BattlefieldModel(8,8);
-        BattlefieldModel fieldModelPlayer2 = new BattlefieldModel(8,8);
+        this.fieldPlayer1 = new BattlefieldModel(8,8);
+        this.fieldPlayer2 = new BattlefieldModel(8,8);
     }
 
     /**
@@ -60,16 +58,17 @@ public class SinkShipController {
      * @param id Id of the player
      * @param shotField The field that was shot
      */
-    public void shootField(int id, String shotField) {
+    public int shootField(int id, String shotField) {
+        int newValue;
         System.out.println("shooting"+id);
-        
-        
         if (id == 1){
-            this.fieldPlayer2.updateFieldModel(shotField);
+            newValue = this.fieldPlayer2.updateFieldModel(shotField);
+            
         }
         else{
-            this.fieldPlayer1.updateFieldModel(shotField);
+            newValue = this.fieldPlayer1.updateFieldModel(shotField);
         }
+        return newValue;
     }
 
     /**
@@ -94,4 +93,6 @@ public class SinkShipController {
     public void incrementTurn() {
         this.turn++;
     }
+    
+
 }

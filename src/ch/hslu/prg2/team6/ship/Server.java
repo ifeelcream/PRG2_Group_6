@@ -13,19 +13,20 @@ public class Server implements Runnable {
     /**
      * The controller which is used to perform actions
      */
-    SinkShipController sinkShipController;
+    private SinkShipController sinkShipController;
 
 
     /**
      * Assigns the attributes
      */
     public Server() {
-        this.sinkShipController = new SinkShipController();
+        sinkShipController = new SinkShipController();
+        sinkShipController.createBattleFields();
         //this.battleField = this.sinkShipController.getUpdatedField();
     }
 
     /**
-     * Run the server in a thread.
+     * Run the server in a thread
      */
     public void run() {
         try {
@@ -46,9 +47,12 @@ public class Server implements Runnable {
                     int id = Integer.parseInt(line.substring(0, 1));
 
                     if (sinkShipController.hasTurn() == id) {
-                        this.sinkShipController.shootField(id, line.substring(1, 3));
-                        //Field that was hit toClient.println("lalal");
+                        int newValue = this.sinkShipController.shootField(id, line.substring(1, 3));
+                        int positionX = Integer.parseInt(line.substring(1,2));
+                        int positionY = Integer.parseInt(line.substring(2,3));
+                        // Todo : Send newValue to both Clients which will update their fields 
                         this.sinkShipController.incrementTurn();
+                        
                     }
                 } catch (NumberFormatException e) {
                     System.err.println("Error: " + e.getMessage());
