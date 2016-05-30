@@ -40,8 +40,8 @@ public class SinkShipController {
      * Creates two new battlefields
      */
     public void createBattleFields() {
-        this.fieldPlayer1 = new BattlefieldModel(8,8,1);
-        this.fieldPlayer2 = new BattlefieldModel(8,8,2);
+        BattlefieldModel fieldModelPlayer1 = new BattlefieldModel(8,8);
+        BattlefieldModel fieldModelPlayer2 = new BattlefieldModel(8,8);
     }
 
     /**
@@ -51,7 +51,7 @@ public class SinkShipController {
      */
     public Client startClient(String IPAddress) {
         // Client darf nur einmal erstellt werden, wie lösen?
-
+        System.out.println("starting client: "+IPAddress);
         return new Client(2, IPAddress);
     }
 
@@ -61,14 +61,22 @@ public class SinkShipController {
      * @param shotField The field that was shot
      */
     public void shootField(int id, String shotField) {
-        //this.fieldPlayer.updateFieldModel(id, shotField);
+        System.out.println("shooting"+id);
+        
+        
+        if (id == 1){
+            this.fieldPlayer2.updateFieldModel(shotField);
+        }
+        else{
+            this.fieldPlayer1.updateFieldModel(shotField);
+        }
     }
 
     /**
      * Returns the updated field.
      * @return Updated field
      */
-    public HashMap<Integer, int[][]> getUpdatedField() {
+    public int[][] getUpdatedField() {
         return this.fieldPlayer1.getBattleField();
     }
 

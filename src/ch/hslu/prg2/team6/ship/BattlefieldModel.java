@@ -36,7 +36,7 @@ public class BattlefieldModel {
      * @param numberOfVerticalFields The number of vertical fields
      * @param id The id of the client
      */
-    public BattlefieldModel(int numberOfHorizontalFields, int numberOfVerticalFields, int id) {
+    public BattlefieldModel(int numberOfHorizontalFields, int numberOfVerticalFields) {
         this.numberOfHorizontalFields = numberOfHorizontalFields;
         this.numberOfVerticalFields = numberOfVerticalFields;
         this.singleBattleField = new int[numberOfHorizontalFields][numberOfVerticalFields];
@@ -61,7 +61,7 @@ public class BattlefieldModel {
             while (!validateAvailableFields(startX, startY, length, isVertical));
             addShip(startX, startY, length, isVertical);
         }
-        this.battleField.put(id, this.singleBattleField);
+       // this.battleField.put(this.singleBattleField);
     }
 
     /**
@@ -131,9 +131,11 @@ public class BattlefieldModel {
      * @param field Field which was shot
      * @param newValue The new value of the field
      */
-    public void updateFieldModel(String field, int newValue) {
-        int positionX = (int) field.charAt(0);
-        int positionY = (int) field.charAt(1);
+    public void updateFieldModel(String field) {
+        
+        int positionX = Integer.parseInt(field.substring(0,1));
+        int positionY = Integer.parseInt(field.substring(1,2));
+        int oldValue = this[positionX][positionY];
         this.singleBattleField[positionX][positionY] = newValue;
     }
 
@@ -158,8 +160,8 @@ public class BattlefieldModel {
      * Returns a HashMap with both battlefields.
      * @return Both battlefields
      */
-    public HashMap<Integer, int[][]> getBattleField() {
-        return this.battleField;
+    public int[][] getBattleField() {
+        return this.singleBattleField;
     }
 
 }

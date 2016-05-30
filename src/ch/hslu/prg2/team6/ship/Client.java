@@ -63,6 +63,7 @@ public class Client {
      * @param field The field that was clicked
      */
     public void sendShotField(String field) {
+        System.out.println("shooting");
         sendData((this.id + field));
     }
 

@@ -25,6 +25,7 @@ public class SinkShipView extends JFrame {
      * Client object needed to store the ID and shoot a field
      */
     Client player;
+    
 
     /**
      * Initialize the components
@@ -64,7 +65,7 @@ public class SinkShipView extends JFrame {
 
         gamePanel.add(boardPanel,BorderLayout.CENTER);
         gamePanel.add(boardTitlePanel, BorderLayout.PAGE_END);
-
+        
         this.gui.add(gamePanel);
     }
 
@@ -74,16 +75,23 @@ public class SinkShipView extends JFrame {
      */
     private final JPanel getIPField() {
         JPanel panel = new JPanel(new GridLayout(1,2)); // 
-        JTextField IPField = new JTextField(1);
+        JTextField IPField = new JTextField(10);
         JButton button = new JButton("Connect to Server");
 
-        button.addActionListener(evt -> this.player = this.sinkShipController.startClient(IPField.getText()));
+        //button.addActionListener(evt -> this.player = this.sinkShipController.startClient(IPField.getText()));
+        button.addActionListener(evt -> {callbackClient(IPField.getText()); });
         panel.add(IPField);
         panel.add(button);
 
         return panel;
     }
+    
+    private void callbackClient(String server){        
+        this.player = this.sinkShipController.startClient(server);
+    }
 
+    private void callbackShot(){}
+    
     /**
      * Creates the game field with a board.
      * @param boardSquares JButton array to hold the fields

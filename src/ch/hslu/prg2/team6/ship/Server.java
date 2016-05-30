@@ -15,10 +15,6 @@ public class Server implements Runnable {
      */
     SinkShipController sinkShipController;
 
-    /**
-     * The initial battlefield
-     */
-    HashMap<Integer, int[][]> battleField;
 
     /**
      * Assigns the attributes
