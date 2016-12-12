@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * This class performs all the necessary actions and updates the model
  *
- * @author Tim Egeli
+ * @author TE
  */
 public class SinkShipController {
     /**
