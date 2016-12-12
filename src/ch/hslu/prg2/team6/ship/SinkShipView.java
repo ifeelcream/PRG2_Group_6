@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * This class creates the GUI and sends action from the GUI to the controller.
  *
- * @author Tim Egeli
+ * @author TE
  */
 public class SinkShipView extends JFrame {
 
