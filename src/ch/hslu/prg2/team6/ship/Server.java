@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * This class provides a TCP server to check the shot fields and proceed them.
  *
- * @author Tim Egeli
+ * @author TE
  */
 public class Server implements Runnable {
     /**
