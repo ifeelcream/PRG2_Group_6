@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * This class provides a TCP client to send data to the server.
  *
- * @author Tim Egeli
+ * @author TE
  */
 public class Client {
     /**
